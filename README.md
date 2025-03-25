@@ -24,29 +24,15 @@ The program will gather rss content from the urls in **feeds.json** and return t
 
 By default, only the current date is returned. This can be bypassed to return all available rss by passing the `-a` flag. 
 
-If using `cargo run`, you must add a `--` to the command. 
+When using `cargo run`, you must add a `--` to the command. 
 
 eg: `cargo run -- -a`
-
-If you are using the binary after installing to your path, you would use
-
-`rust_rss -a`
 
 3. Make tweaks to the program, if desired.
 
 Examples:
 - Edit the feeds.json to customize your rss sources.
 - Add flags/args to create filter options like ranges of dates, topics, etc.
-
-### Installing to /bin & PATH:
-
-This repository includes a bash script (install.sh) for building and installing the binary and adding the run command to your environment.
-
-Run `./install.sh` from the **/rust_rss** directory.
-
-You may have to run `chmod +x install.sh` to make it executable.
-
-Once installed, you can run the program with `rust_rss`
 
 ### Flags and other options:
 
@@ -58,9 +44,9 @@ Once installed, you can run the program with `rust_rss`
 
 Piping and routing output to files or other functions supported by default.
 
-Use `rust_rss > todays_news.md` to save the output to a markdown file.
+Use `cargo run > todays_news.md` to save the output to a markdown file.
 
-Or `rust_rss | grep "tech"` to filter for tech related news.
+Or `cargo run -- -a | grep "tech"` to filter for all tech related news.
 
 ---
 ## WORKING/NEXT

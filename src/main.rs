@@ -133,7 +133,7 @@ fn main() {
     let fetch_all = args.contains(&"-a".to_string()) || args.contains(&"--all".to_string());
     let fetch_today = args.contains(&"-t".to_string()) || args.contains(&"--today".to_string());
 
-    let rss_feeds = read_feeds_from_json("src/feeds.json");
+    let rss_feeds = read_feeds_from_json("./feeds.json");
 
     for feed in rss_feeds {
         match fetch_rss_feed(&feed) {
