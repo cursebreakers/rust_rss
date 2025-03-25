@@ -1,0 +1,15 @@
+{
+    "rss_feeds": [
+      "https://www.rt.com/rss/news/",
+      "https://www.aljazeera.com/xml/rss/all.xml",
+      "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+	  "https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/world",
+	  "http://feeds.bbci.co.uk/news/rss.xml",
+      "https://www.theguardian.com/world/rss",
+	  "https://news.google.com/rss/search?q=site%3Areuters.com&hl=en-US&gl=US&ceid=US%3Aen",
+	  "https://www.propublica.org/feeds/propublica/main",
+      "https://www.eff.org/rss/updates.xml",
+	  "https://act.eff.org/action.atom"
+    ]
+  }
+  
