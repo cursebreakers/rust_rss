@@ -20,9 +20,7 @@
 
 `cargo run`
 
-THe program will gather rss content from the urls in **feeds.json** and return them to the terminal. 
-
-By default, only the current date is returned. This can be bypassed to return all available rss by passing the `-a` flag (if using `cargo run` and not the binary, you must add a `--` to the command). 
+The program will gather rss content from the urls in **feeds.json** and return them to the terminal. By default, only the current date is returned. This can be bypassed to return all available rss by passing the `-a` flag (if using `cargo run` and not the binary, you must add a `--` to the command). 
 
 eg: `cargo run -- -a`
 
@@ -95,13 +93,13 @@ Esau @ [Cursebreakers LLC](https://cursebreakers.net)
 
 **Crates used:**
 
-| Dependency   | Version | Features       |
-|--------------|---------|----------------|
-| reqwest      | 0.11    | blocking, json |
-| serde_json   | 1.0     |
-| serde        | 1.0     | derive |
-| tokio        | 1       | full |
-| chrono       | 0.4     | |
+| Dependency | Version |
+|------------|------|
+| reqwest    | 0.11 |
+| serde_json | 1.0  |
+| serde      | 1.0  |
+| tokio      | 1    |
+| chrono     | 0.4  |
 
 Honorable mention to [cargo-mommy](https://github.com/Gankra/cargo-mommy), for making programming with Rust much more fun.
 
