@@ -1,13 +1,25 @@
 {
     "rss_feeds": [
+	  "https://news.google.com/rss/search?q=site%3Areuters.com&hl=en-US&gl=US&ceid=US%3Aen",
       "https://www.rt.com/rss/news/",
       "https://www.aljazeera.com/xml/rss/all.xml",
-      "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
-	  "https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/world",
 	  "http://feeds.bbci.co.uk/news/rss.xml",
+	  "https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/world",
+      "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",
+	  "https://www.cbsnews.com/latest/rss/main",
+	  "https://feeds.abcnews.com/abcnews/topstories",
       "https://www.theguardian.com/world/rss",
-	  "https://news.google.com/rss/search?q=site%3Areuters.com&hl=en-US&gl=US&ceid=US%3Aen",
-	  "https://www.propublica.org/feeds/propublica/main",
+	  "https://www.propublica.org/feeds/propublica/main"
+    ],
+    "other_feeds": [
+	  "https://feeds.abcnews.com/abcnews/technologyheadlines",
+	  "https://www.wired.com/feed/category/backchannel/latest/rss",
+	  "https://www.wired.com/feed/tag/ai/latest/rss",
+	  "https://www.wired.com/feed/category/culture/latest/rss",
+	  "https://www.wired.com/feed/category/gear/latest/rss",
+	  "https://www.wired.com/feed/category/security/latest/rss",
+      "https://cms.qz.com/feed",
+	  "https://hnrss.org/newest",
       "https://www.eff.org/rss/updates.xml",
 	  "https://act.eff.org/action.atom"
     ]
