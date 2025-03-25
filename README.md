@@ -60,6 +60,9 @@ Interface/menu
 
 ### Future:
 
+Feed collections/genre options
+- curate and select different sets of feeds
+
 Flag/arg controls
 - `-t`/`--today` 
   - *(this is the default setting)*
@@ -67,9 +70,6 @@ Flag/arg controls
   - *(apply pub date filter to output. x = date)*
 - `-s f`/`--save f` 
   - *(Save output to file. Allow format spec with f var. f = md, json or txt. Default to markdown.)*
-
-Feed collections/genre options
-- curate and select different sets of feeds
 
 ---
 
@@ -90,6 +90,7 @@ Esau @ [Cursebreakers LLC](https://cursebreakers.net)
 | serde      | 1.0  |
 | tokio      | 1    |
 | chrono     | 0.4  |
+| colored    | 2.0  |
 
 Honorable mention to [cargo-mommy](https://github.com/Gankra/cargo-mommy), for making programming with Rust much more fun.
 

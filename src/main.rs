@@ -9,6 +9,7 @@ use std::io::Read;
 use std::env;
 use std::str;
 use std::string::String;
+use std::collections::HashMap;
 use colored::*;
 
 const MAIN_FEEDS: bool = true;
@@ -37,14 +38,14 @@ fn extract_element(content: &str, start_tag: &str, end_tag: &str) -> Option<Stri
 }
 
 // Parse and print RSS feed
-fn parse_rss_feed(feed_url: &str, rss_content: &str, fetch_all: bool) {
+fn parse_rss_feed(feed_url: &str, rss_content: &str, fetch_all: bool) -> usize {
     let item_start_rss = "<item>";
     let item_end_rss = "</item>";
     let entry_start_atom = "<entry>";
     let entry_end_atom = "</entry>";
-    
+
     let mut pos = 0;
-    let mut found_posts = false;
+    let mut post_count = 0;
 
     let is_rss = rss_content.contains("<item>");
     let is_atom = rss_content.contains("<entry>");
@@ -63,13 +64,12 @@ fn parse_rss_feed(feed_url: &str, rss_content: &str, fetch_all: bool) {
                 if !title.is_empty() && !link.is_empty() && !pub_date_str.is_empty() {
                     if fetch_all || is_today(&pub_date_str) {
                         println!("{}: {}", "Headline".truecolor(255, 255, 255).bold(), title.truecolor(255, 255, 255).bold());
-
                         println!("{}: {}", "URL".truecolor(0, 255, 255), link.truecolor(150, 220, 210));
                         println!("{}: {}\n", "Publication Date".truecolor(100, 50, 255), pub_date_str.truecolor(100, 50, 255));
-                        found_posts = true;
+                        post_count += 1;
                     }
                 }
-                pos = end_pos; // Move past the processed <item>
+                pos = end_pos;
             } else {
                 break;
             }
@@ -89,22 +89,26 @@ fn parse_rss_feed(feed_url: &str, rss_content: &str, fetch_all: bool) {
 
                 if !title.is_empty() && !link.is_empty() && !updated_str.is_empty() {
                     if fetch_all || is_today(&updated_str) {
-                        println!("{}: {}", "Headline".truecolor(255, 255, 255), title.truecolor(0, 255, 0)); // Electric green
-                        println!("{}: {}", "URL".truecolor(150, 220, 210), link.truecolor(0, 255, 255)); // Electric green
+                        println!("{}: {}", "Headline".truecolor(255, 255, 255), title.truecolor(0, 255, 0));
+                        println!("{}: {}", "URL".truecolor(150, 220, 210), link.truecolor(0, 255, 255));
                         println!("{}: {}\n", "Updated Date".truecolor(100, 50, 255), updated_str.truecolor(100, 50, 255));
-                        found_posts = true;
+                        post_count += 1;
                     }
                 }
-                pos = end_pos; // Move past the processed <entry>
+                pos = end_pos;
             } else {
                 break;
             }
         }
     }
 
-    if !found_posts {
-	    println!("{} {}", "No posts retrieved from".truecolor(255, 255, 0), feed_url.truecolor(255, 255, 0));	
+    if post_count == 0 {
+        println!("{} {}", "No posts retrieved from".truecolor(255, 255, 0), feed_url.truecolor(255, 255, 0));
+    } else {
+        println!("Retrieved {} posts from {}\n", post_count, feed_url.green());
     }
+
+    post_count
 }
 
 // Read feeds from feeds.json
@@ -117,21 +121,25 @@ fn read_feeds_from_json(file_path: &str) -> Vec<String> {
 
     let mut feeds = Vec::new();
     if MAIN_FEEDS {
+		println!("Getting main feeds...");
         if let Some(rss_feeds) = json["main_feeds"].as_array() {
             feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
         }
     }
     if SCIENCE_FEEDS {
+		println!("Getting science feeds...");
         if let Some(rss_feeds) = json["science"].as_array() {
             feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
         }
     }
     if CYBERSECURITY_FEEDS {
+		println!("Getting cybersecurity feeds...");
         if let Some(rss_feeds) = json["cybersecurity"].as_array() {
             feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
         }
     }
     if FAVORITES_FEEDS {
+		println!("Getting favorite feeds...");
         if let Some(rss_feeds) = json["favorites"].as_array() {
             feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
         }
@@ -155,12 +163,33 @@ fn main() {
     let fetch_today = args.contains(&"-t".to_string()) || args.contains(&"--today".to_string());
 
     let rss_feeds = read_feeds_from_json("./feeds.json");
+    println!("Fetching from {} feeds...\n", rss_feeds.len());
+
+    let mut total_posts = 0;
+    let mut feed_counts: HashMap<String, usize> = HashMap::new();
 
     for feed in rss_feeds {
-        match fetch_rss_feed(&feed) {
-            Ok((feed_url, rss_content)) => parse_rss_feed(&feed_url, &rss_content, fetch_all || fetch_today),
-            Err(e) => eprintln!("Error fetching RSS feed {}: {}", feed, e),
+    let post_count = match fetch_rss_feed(&feed) {
+        Ok((feed_url, rss_content)) => parse_rss_feed(&feed_url, &rss_content, fetch_all || fetch_today),
+        Err(e) => {
+            eprintln!("Error fetching RSS feed {}: {}", feed, e);
+            0
         }
+    };
+
+    total_posts += post_count;
+    feed_counts.insert(feed, post_count);
+}
+
+    println!("\nSummary:");
+for (feed, count) in &feed_counts {
+    if *count == 0 {
+        println!("{}: {} posts", feed.red(), count.to_string().bold().red());
+    } else {
+        println!("{}: {} posts", feed.green(), count.to_string().bold());
     }
+}
+    
+    println!("\nTotal posts retrieved: {}", total_posts.to_string().bold());
 }
 
