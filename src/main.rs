@@ -11,9 +11,14 @@ use std::str;
 use std::string::String;
 use colored::*;
 
+const MAIN_FEEDS: bool = true;
+const SCIENCE_FEEDS: bool = true;
+const CYBERSECURITY_FEEDS: bool = true;
+const FAVORITES_FEEDS: bool = true;
+
 // Function to fetch and parse RSS feed
 fn fetch_rss_feed(url: &str) -> Result<(String, String), Error> {
-    println!("Fetching: {}", url.green());
+    println!("Fetching RSS feed from: {}", url.green());
     let response = get(url)?.text()?;
     Ok((url.to_string(), response))
 }
@@ -23,7 +28,9 @@ fn extract_element(content: &str, start_tag: &str, end_tag: &str) -> Option<Stri
     if let Some(start) = content.find(start_tag) {
         let start_pos = start + start_tag.len();
         if let Some(end) = content[start_pos..].find(end_tag) {
-            return Some(content[start_pos..start_pos + end].to_string());
+            let mut extracted = content[start_pos..start_pos + end].to_string();
+            extracted = extracted.replace("<![CDATA[", "").replace("]]>", ""); // Remove CDATA markers
+            return Some(extracted);
         }
     }
     None
@@ -109,11 +116,25 @@ fn read_feeds_from_json(file_path: &str) -> Vec<String> {
     let json: Value = serde_json::from_str(&contents).expect("Invalid JSON format");
 
     let mut feeds = Vec::new();
-    if let Some(rss_feeds) = json["rss_feeds"].as_array() {
-        feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+    if MAIN_FEEDS {
+        if let Some(rss_feeds) = json["main_feeds"].as_array() {
+            feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+        }
     }
-    if let Some(other_feeds) = json["other_feeds"].as_array() {
-        feeds.extend(other_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+    if SCIENCE_FEEDS {
+        if let Some(rss_feeds) = json["science"].as_array() {
+            feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+        }
+    }
+    if CYBERSECURITY_FEEDS {
+        if let Some(rss_feeds) = json["cybersecurity"].as_array() {
+            feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+        }
+    }
+    if FAVORITES_FEEDS {
+        if let Some(rss_feeds) = json["favorites"].as_array() {
+            feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+        }
     }
 
     feeds
