@@ -20,11 +20,15 @@
 
 `cargo run`
 
-The program will gather rss content from the urls in **feeds.json** and return them to the terminal. By default, only the current date is returned. This can be bypassed to return all available rss by passing the `-a` flag (if using `cargo run` and not the binary, you must add a `--` to the command). 
+The program will gather rss content from the urls in **feeds.json** and return them to the terminal. 
+
+By default, only the current date is returned. This can be bypassed to return all available rss by passing the `-a` flag. 
+
+If using `cargo run`, you must add a `--` to the command. 
 
 eg: `cargo run -- -a`
 
-Meanwhile if you are using the binary installed to your path, you would use
+If you are using the binary after installing to your path, you would use
 
 `rust_rss -a`
 
@@ -40,7 +44,7 @@ This repository includes a bash script (install.sh) for building and installing 
 
 Run `./install.sh` from the **/rust_rss** directory.
 
-(You may have to run `chmod +x install.sh` to make it executable.)
+You may have to run `chmod +x install.sh` to make it executable.
 
 Once installed, you can run the program with `rust_rss`
 
