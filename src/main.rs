@@ -13,8 +13,8 @@ use std::collections::HashMap;
 use colored::*;
 
 const MAIN_FEEDS: bool = true;
-const SCIENCE_FEEDS: bool = true;
 const CYBERSECURITY_FEEDS: bool = true;
+const SCIENCE_FEEDS: bool = true;
 const FAVORITES_FEEDS: bool = true;
 
 // Function to fetch and parse RSS feed
@@ -126,15 +126,15 @@ fn read_feeds_from_json(file_path: &str) -> Vec<String> {
             feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
         }
     }
-    if SCIENCE_FEEDS {
-		println!("Getting science feeds...");
-        if let Some(rss_feeds) = json["science"].as_array() {
-            feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
-        }
-    }
     if CYBERSECURITY_FEEDS {
 		println!("Getting cybersecurity feeds...");
         if let Some(rss_feeds) = json["cybersecurity"].as_array() {
+            feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
+        }
+    }
+    if SCIENCE_FEEDS {
+		println!("Getting science feeds...");
+        if let Some(rss_feeds) = json["science"].as_array() {
             feeds.extend(rss_feeds.iter().filter_map(|f| f.as_str().map(String::from)));
         }
     }

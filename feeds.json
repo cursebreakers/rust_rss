@@ -11,24 +11,32 @@
       "https://www.theguardian.com/world/rss",
 	  "http://www.npr.org/rss/rss.php?id=1001"
     ],
-    "science": [
-	  "https://www.wired.com/feed/category/backchannel/latest/rss",
-	  "https://www.wired.com/feed/category/culture/latest/rss",
-	  "https://www.wired.com/feed/category/gear/latest/rss",
-	  "https://www.wired.com/feed/category/security/latest/rss",
-      "https://cms.qz.com/feed",
-	  "http://www.npr.org/rss/rss.php?id=1019",
-	  "https://hnrss.org/newest"
-    ],
 	"cybersecurity": [
 	  "https://www.zerodayinitiative.com/rss/upcoming/",
+	  "https://www.ncsc.gov.uk/api/1/services/v1/all-rss-feed.xml",
+	  "https://www.cisa.gov/news.xml",
+	  "https://www.cisa.gov/cisa/blog.xml",
+	  "https://www.cisa.gov/cybersecurity-advisories/all.xml",
 	  "https://www.nist.gov/news-events/news/rss.xml",
 	  "https://www.nist.gov/news-events/cybersecurity/rss.xml",
 	  "https://www.nist.gov/news-events/environment/rss.xml"
 	],
+    "science": [
+      "https://cms.qz.com/feed",
+	  "http://www.npr.org/rss/rss.php?id=1019",
+	  "https://news.mit.edu/rss/feed",
+	  "https://news.mit.edu/rss/topic/neuroscience-neurology-and-cognitive-sciences",
+	  "https://news.mit.edu/rss/topic/environment",
+	  "https://news.mit.edu/rss/topic/food-and-water-security",
+	  "https://news.mit.edu/topic/mitspace-rss.xml",
+	  "https://home.cern/api/news/news/feed.rss",
+	  "https://home.cern/api/topic/experiments/feed.rss",
+	  "https://home.cern/api/topic/computing/feed.rss",
+	  "http://www.nasa.gov/rss/dyn/breaking_news.rss"
+    ],
 	"favorites": [
+	  "https://hnrss.org/newest",
  	  "https://www.propublica.org/feeds/propublica/main",
-	  "http://www.nasa.gov/rss/dyn/breaking_news.rss",
 	  "https://www.eff.org/rss/updates.xml"
 	]
   }
